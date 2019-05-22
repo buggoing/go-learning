@@ -29,11 +29,11 @@ func customer(container <-chan interface{}, customerID int, interval time.Durati
 func main() {
 	container := make(chan interface{}, 100)
 	done := make(chan int)
-	go producer(container, 10*time.Millisecond, 1000, done)
+	go producer(container, 1*time.Millisecond, 1000, done)
 
 	for i := 0; i < 5; i++ {
 		// go customer(container, i, 1*time.Second)
-		go customer(container, i, 20*time.Millisecond)
+		go customer(container, i, 2*time.Millisecond)
 	}
 	<-done
 }

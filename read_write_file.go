@@ -34,8 +34,8 @@ func readJson(pers *Person, filename string) (err error) {
 	if err != nil {
 		return err
 	}
-	_ = json.Unmarshal([]byte(file), pers)
-	return nil
+	err = json.Unmarshal([]byte(file), pers)
+	return err
 }
 
 func main() {

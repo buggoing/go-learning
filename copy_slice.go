@@ -8,8 +8,7 @@ func main() {
 	sli2 := sli1
 
 	sli3 := sli1
-	sli4 := []int(sli1)
-
+	sli4 := sli1[:]
 	sli5 := make([]int, len(sli1))
 	copy(sli5, sli1)
 

@@ -12,9 +12,6 @@ func main() {
 	sli5 := make([]int, len(sli1))
 	copy(sli5, sli1)
 
-	sli6 := []int{1, 3}
-	sli1 = sli6
-
 	sli2[0] = -100
 
 	fmt.Println(sli1)
@@ -23,5 +20,12 @@ func main() {
 	fmt.Println(sli4)
 	fmt.Println(sli5)
 	fmt.Println("cap: ", cap(sli1), cap(sli5))
+
+	li := sli1[1:]
+	// li = append(li, 33, 22, 11, 3, 444444, 5)
+	fmt.Println(li)
+	li[1] = 9999
+	fmt.Println(sli1)
+	fmt.Println(li)
 
 }

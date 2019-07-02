@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
 )
@@ -38,18 +39,39 @@ func readJson(pers *Person, filename string) (err error) {
 	return err
 }
 
+func checkError(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
 func main() {
 	filename := "alice.json"
 	pers := Person{Name: "Alice", Age: 23}
 	err := writeJson(&pers, filename)
-	if err != nil {
-		panic(err)
-	}
+	checkError(err)
 	pers2 := Person{}
 	err = readJson(&pers2, filename)
 
-	if err != nil {
-		panic(err)
-	}
+	checkError(err)
 	fmt.Println(pers2)
+
+	tmpFilename := "./read_write_file.go"
+	file, err := os.Open(tmpFilename)
+	checkError(err)
+	defer file.Close()
+
+	content := make([]byte, 1024)
+	for {
+
+		n1, err := file.Read(content)
+		if err == io.EOF {
+			break
+		} else {
+			checkError(err)
+		}
+		fmt.Println("n1: ", n1)
+		fmt.Println(content[:n1])
+	}
+
 }

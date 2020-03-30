@@ -18,16 +18,13 @@ func handleConn(c net.Conn) {
 }
 
 func main() {
-	listener, err := net.Listen("tcp", "localhost:8000")
+	listener, err := net.Listen("tcp", "127.0.0.1:5000")
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("hello world")
-	//!+
 	for {
 		conn, err := listener.Accept()
 		fmt.Println("c", conn)
-
 		if err != nil {
 			log.Print(err) // e.g., connection aborted
 			continue

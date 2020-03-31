@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/gob"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net"
@@ -22,6 +23,11 @@ func main() {
 	msg := udp.Message{
 		DeviceID: "kasdjfalksdf",
 	}
+	jsonMsg, err := json.Marshal(msg)
+	if err != nil {
+		log.Fatalf("jsonMsg err: %v", err)
+	}
+	fmt.Printf("jsonMsg: %v", string(jsonMsg))
 	buf := new(bytes.Buffer)
 	encoder := gob.NewEncoder(buf)
 	encoder.Encode(msg)

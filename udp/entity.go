@@ -1,5 +1,5 @@
 package udp
 
 type Message struct {
-	DeviceID string
+	DeviceID string `json:"deviceID"`
 }

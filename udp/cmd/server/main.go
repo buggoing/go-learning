@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/gob"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net"
@@ -14,10 +15,17 @@ func handleClient(buf []byte, addr *net.UDPAddr) {
 	tmpBuf := bytes.NewBuffer(buf)
 	decoder := gob.NewDecoder(tmpBuf)
 	if err := decoder.Decode(msg); err != nil {
-		fmt.Printf("failed to decode mes err: %v", err)
+		fmt.Printf("failed to decode msg err: %v", err)
 	}
 	fmt.Printf("msg: %+v", *msg)
+}
 
+func handleClientJSON(buf []byte, addr *net.UDPAddr) {
+	msg := new(udp.Message)
+	if err := json.Unmarshal(buf, msg); err != nil {
+		fmt.Printf("failed to unmarshall msg err: %v", err)
+	}
+	fmt.Printf("msg: %+v", *msg)
 }
 
 func main() {
@@ -34,6 +42,6 @@ func main() {
 			fmt.Printf("failed to read from udp err: %v", err)
 			continue
 		}
-		go handleClient(buf[:n], addr) // handle connections concurrently
+		go handleClientJSON(buf[:n], addr)
 	}
 }

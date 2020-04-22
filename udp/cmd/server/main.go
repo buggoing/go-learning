@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"time"
 	"udp"
 )
 
@@ -21,11 +22,11 @@ func handleClient(buf []byte, addr *net.UDPAddr) {
 }
 
 func handleClientJSON(buf []byte, addr *net.UDPAddr) {
+
 	msg := new(udp.Message)
 	if err := json.Unmarshal(buf, msg); err != nil {
-		fmt.Printf("failed to unmarshall msg err: %v", err)
+		fmt.Printf("failed to unmarshall msg err: %v\n", err)
 	}
-	fmt.Printf("msg: %+v", *msg)
 }
 
 func main() {
@@ -37,11 +38,17 @@ func main() {
 	conn, err := net.ListenUDP("udp", udpAddr)
 	var buf [1024]byte
 	for {
-		n, addr, err := conn.ReadFromUDP(buf[0:])
+		_, addr, err := conn.ReadFromUDP(buf[0:])
 		if err != nil {
 			fmt.Printf("failed to read from udp err: %v", err)
 			continue
 		}
-		go handleClientJSON(buf[:n], addr)
+		fmt.Printf("received: %v from %+v \n", string(buf[:]), *addr)
+		reply := []byte(fmt.Sprintf("server %v\n", time.Now()))
+		_, err = conn.WriteTo(reply, addr)
+		if err != nil {
+			fmt.Printf("failed to send err: %v", err)
+		}
+		// go handleClientJSON(buf[:n], addr)
 	}
 }

@@ -18,7 +18,6 @@ func main() {
 	fmt.Printf("sizeof(%T) is: %d\n", m, unsafe.Sizeof(m))
 	b := true
 	fmt.Printf("sizeof(%T) is: %d\n", b, unsafe.Sizeof(b))
-	var s interface{} = "2"
-	two, ok := s.(int)
-	fmt.Printf("t: %v, ok: %v\n", two, ok)
+	var s interface{}
+	fmt.Printf("sizeof(%T) is: %d\n", s, unsafe.Sizeof(s))
 }

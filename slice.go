@@ -28,4 +28,15 @@ func main() {
 	fmt.Println(sli1)
 	fmt.Println(li)
 
+	a := []int{}
+	var b []int
+	fmt.Printf("a: %+v, len: %d\n", a, len(a))
+	fmt.Printf("a is nil %v\n", a == nil)
+
+	fmt.Printf("b: %+v, len: %d\n", b, len(b))
+	fmt.Printf("b is nil %v\n", b == nil)
+
+	var m map[string]string
+	fmt.Printf("m: %+v, len: %d\n", m, len(m))
+	fmt.Printf("m is nil %v\n", m == nil)
 }

@@ -6,6 +6,10 @@ type Node struct {
 	Val []string
 }
 
+func updateSlice(s []string) {
+	s[0] = "changed"
+}
+
 func main() {
 	n := Node{
 		Val: []string{"hello", "world"},
@@ -27,4 +31,9 @@ func main() {
 	m2 := m1
 	m2["hello"] = "world"
 	fmt.Println("after: ", m1)
+
+	s1 := []string{"hello", "world"}
+	fmt.Println("before: ", s1)
+	updateSlice(s1)
+	fmt.Println("after: ", s1)
 }

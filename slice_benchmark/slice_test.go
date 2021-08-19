@@ -19,12 +19,14 @@ func TestMain(m *testing.M) {
 }
 
 func BenchmarkUseAppend(b *testing.B) {
+	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		useAppend(arr)
 	}
 }
 
 func BenchmarkUseMake(b *testing.B) {
+	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		useMake(arr)
 	}

@@ -23,7 +23,16 @@ func main() {
 	default:
 		fmt.Println("default")
 		fmt.Println("default")
+	}
 
+	var j interface{} = 2.3
+	switch t := j.(type) {
+	case float32:
+		fmt.Println("float32: ", t)
+	case float64:
+		fmt.Println("float64: ", t)
+	default:
+		fmt.Println("not float: %v", t)
 	}
 
 }

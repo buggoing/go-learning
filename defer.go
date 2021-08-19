@@ -7,6 +7,12 @@ func main() {
 	defer f()
 	f = hello2
 	defer f()
+
+	for i := 0; i < 100000; i++ {
+		defer func(i int) {
+			fmt.Println(i)
+		}(i)
+	}
 }
 
 func hello() {
